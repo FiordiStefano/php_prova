@@ -4,6 +4,6 @@
   
   </head>
   <body>
-  <?php echo "Hello world"; ?>
+    <a href="indovina.php">Indovina Numero</a>
   </body>
 </html>
