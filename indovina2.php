@@ -23,17 +23,15 @@
       else
       {
         $_SESSION["vis"] = "none";
-        $res = "BRAVO!<br>Hai indovinato in ". $_SESSION["count"] ." tentativi.<br>";
+        $res = "BRAVO!<br>Hai indovinato in ". $_SESSION["count"] ." tentativi.<br><br>";
       }
       if($_SESSION["count"] > 7)
       {
         $_SESSION["vis"] = "none";
-        $res = "Spiacenti...<br>hai superato il massimo di 7 tentativi.";
+        $res = "Spiacenti...<br>hai superato il massimo di 7 tentativi.<br><br>";
       }
     }
     else {
-      //$count = 1;
-      //$n = rand(1, 100);
       $_SESSION["vis"] = "block"; 
       $_SESSION["count"] = 1;
       $_SESSION["n"] = rand(1, 100);
