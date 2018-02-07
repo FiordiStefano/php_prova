@@ -4,8 +4,21 @@
   </head>
   <body>
     <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      
+    }
+    else {
       $count = 1;
       $n = rand(1, 100);
+      $numero = 0;
+    } 
+      
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
     ?>
     <div>
       <h2>
@@ -17,7 +30,7 @@
         <strong>Inserisci il numero</strong>
       </p>
       <br>
-      <form action="indovinaAlg.php" method="post">
+      <form action="" method="post">
         <input type="text" name="numero">
         <br>
         <input type="submit" name="conferma" value="Conferma">
