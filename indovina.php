@@ -2,8 +2,8 @@
 <?php
   if(!isset($_POST["numero"]))
   {
-    $mes="Regole del gioco";
-    $mes2="Il giocatore deve indovinare un numero da 1 a 100. Hai a disposizione 7 tentativi, quindi fai attenzione ai numeri che vuoi inserire";
+    $mes="<strong>Regole del gioco</strong>";
+    $mes2="Il giocatore deve indovinare un numero compreso fra 1 e 100 in max 7 tentativi.";
     $bott="Inizia il gioco";
     $_POST["numero"] = rand(1, 100);
     $_POST["count"] = 1;
@@ -14,13 +14,12 @@
     $input="text";
     if($_POST["count"] <= 7)
     {
+      $mes="Tentativo n." . $_POST["count"] ."<br><strong>Inserisci il numero</strong>";
       if($_POST["tentativo"] > $_POST["numero"])
-      {
-        $mes="Tentativo numero " . $_POST["count"];
-        
+      {        
         if($_POST["count"] > 1)
         {
-          $mes2="Numero troppo grande!";
+          $mes2="Il numero &egrave troppo grande!";
         }
         else
         {
@@ -31,10 +30,10 @@
         $_POST["count"]++;
       }
       else if($_POST["tentativo"] < $_POST["numero"])
-      {        
+      {              
         if($_POST["count"] > 1)
         {
-          $mes2="Numero troppo piccolo!";
+          $mes2="Il numero &egrave troppo piccolo!";
         }
         else
         {
@@ -47,10 +46,9 @@
       else
       {
         $input="hidden";
-        $_POST["count"]--;
-        $mes="WoW, hai indovinato il numero in " . $_POST["count"] . " tentativo/i!";
+        $mes="BRAVO!<br>Hai indovinato in " . $_POST["count"] . " tentativi!";
         $mes2="";
-        $bott="Dai, gioca ancora!";
+        $bott="Gioca di nuovo";
         unset($_POST["numero"]);
         $_POST["numero"] = rand(1, 100);
         $_POST["count"] = 1;
@@ -59,7 +57,7 @@
     else
     {
       $input="hidden";
-      $mes="Hai perso!";
+      $mes="Spiacenti...<br>Hai superato il max di 7 tentativi.";
       $mes2="";
       $bott="Ritenta";
       unset($_POST["numero"]);
@@ -73,23 +71,14 @@
     <style>
       body
       {
-        background-color: lightblue;
-      }
-      h1
-      {
-        color: white;
+        background-color: lightgreen;
         text-align: center;
-      }
-      p
-      {
-        font-family: verdana;
-        font-size: 20px; 
       }
     </style>
   </head>
   <body>
     <title>Gioco dell'indovina numero</title>
-    <h1>Gioco dell'indovina numero</h1>
+    <h2>Gioco dell'indovina numero</h2>
     <p><?php echo $mes; ?></p>
     <p><?php echo $mes2; ?></p>
     <form action="" method="post">
