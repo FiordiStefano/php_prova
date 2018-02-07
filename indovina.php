@@ -50,7 +50,7 @@
         $_POST["count"]--;
         $mes="WoW, hai indovinato il numero in " . $_POST["count"] . " tentativo/i!";
         $mes2="";
-        $bot="Dai, gioca ancora!";
+        $bott="Dai, gioca ancora!";
         unset($_POST["numero"]);
         $_POST["numero"] = rand(1, 100);
         $_POST["count"] = 1;
@@ -61,7 +61,7 @@
       $input="hidden";
       $mes="Hai perso!";
       $mes2="";
-      $bot="Ritenta";
+      $bott="Ritenta";
       unset($_POST["numero"]);
       $_POST["numero"] = rand(1, 100);
       $_POST["count"] = 1;
@@ -96,7 +96,7 @@
       <p><input type="<?php echo $input; ?>" name="tentativo"></p>
       <input type="hidden" name="numero" value="<?php echo $_POST["numero"]; ?>">
       <input type="hidden" name="count" value="<?php echo $_POST["count"]; ?>">
-      <p><input type="submit" value="<?php echo $bot; ?>"></p>
+      <p><input type="submit" value="<?php echo $bott; ?>"></p>
     </form>
   </body>
 </html>
