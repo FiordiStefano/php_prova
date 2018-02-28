@@ -1,35 +1,50 @@
 <!DOCTYPE HTML>
-<?php
-  if(!isset($_POST["conferma"]))
-  {
-    $titolo="<h2>Modulo di iscrizione<h2>";
-    $cognome="<p>Cognome:</p><input type=\"text\" name=\"cognome\">";
-    $nome="<p>Nome:</p><input type=\"text\" name=\"nome\">";
-    $sesso="<p>Sesso:</p><input type=\"radio\" name=\"sesso\" value=\"maschio\">Maschio <input type=\"radio\" name=\"sesso\" value=\"femmina\">Femmina";
-    $nazionalita="<p>Nazionalit&agrave:</p><select name=\"nazionalita\"><option value=\"italiana\">Italiana</option><option value=\"francese\">Francese</option><option value=\"spagnola\">Spagnola</option><option value=\"tedesca\">Tedesca</option></select>";
-    $patente="<p>Patente:</p><input type=\"checkbox\" name=\"catA\" value=\"catA\">Cat. A <input type=\"checkbox\" name=\"catB\" value=\"catB\">Cat. B";
-    $email="<p>E-mail:</p><input type=\"text\" name=\"email\">";
-    $password="<p>Password:</p><input type=\"password\" name=\"password\">";
-    $form=$cognome . $nome . $sesso . $nazionalita . $patente . $email . $password;
-  }
-  else
-  {
-    $titolo="<h2>Riepilogo dati<h2>";
-    $text="hidden";
-    $radio="hidden";
-    $select=$_POST["nazionalita"];
-    $checkbox="hidden";
-    $password="hidden";
-  }
-?>
 <head>
-  
+  <style>
+    #inserimento
+    {
+      position: absolute;
+      width: 16%;
+      left: 42%;
+      background-color: #0099ff;
+      border-radius: 1% 1%;
+      padding: 1%;
+      color: white;
+      font-family: Verdana, sans-serif;
+    }
+    #registrazione
+    {
+      text-align: right;
+    }
+    label
+    {
+      margin-right: 5%;
+    }
+    select, [type=text], [type=password]
+    {
+      width: 60%;
+    }
+  </style>
 </head>
 <body>
-  <?php echo $titolo; ?>
-  <form action="" method="post">
-    <?php echo $form; ?>
-    <br>
-    <input type="submit" name="annulla" value="Annulla"> <input type="submit" name="conferma" value="Conferma">
-  </form>
+  <div id="inserimento">
+    <h2>Modulo di iscrizione</h2>
+    <form id="registrazione" action="" method="post">
+      <label>Cognome:</label><input type="text" name="cognome">
+      <br><br>
+      <label>Nome:</label><input type="text" name="nome">
+      <br><br>
+      <label>Sesso:</label><input type="radio" name="sesso" value="maschio">Maschio <input type="radio" name="sesso" value="femmina">Femmina
+      <br><br>
+      <label>Nazionalit&agrave:</label><select name="nazionalita"><option value="italiana">Italiana</option><option value="francese">Francese</option><option value="spagnola">Spagnola</option><option value="tedesca">Tedesca</option></select>
+      <br><br>
+      <label>Patente:</label><input type="checkbox" name="catA" value="catA">Cat. A <input type="checkbox" name="catB" value="catB">Cat. B
+      <br><br>
+      <label>E-mail:</label><input type="text" name="email">
+      <br><br>
+      <label>Password:</label><input type="password" name="password">
+      <br><br>
+    </form>
+    <button>Annulla</button><button>Conferma</button>
+  </div>
 </body>

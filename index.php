@@ -1,8 +1,21 @@
 <!DOCTYPE HTML>
 <head>
+  <style>
+    a
+    {
+      text-decoration: none;
+      color: white;
+    }
+    body
+    {
+      background-color: black;
+      color: white;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <a href="indovina.php">Indovina numero</a>
+  <a href="indovina.php"><h3>Indovina numero</h3></a>
   <br>
-  <a href="registrazione.php">Modulo Registrazione</a>
+  <a href="registrazione.php"><h3>Modulo Registrazione</h3></a>
 </body>
