@@ -18,4 +18,6 @@
   <a href="indovina.php"><h3>Indovina numero</h3></a>
   <br>
   <a href="registrazione.php"><h3>Modulo Registrazione</h3></a>
+  <br>
+  <a href="registrazione_bs.php"><h3>Registrazione (Bootstrap)</h3></a>
 </body>
