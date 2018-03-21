@@ -13,7 +13,12 @@
       font-family: Verdana, sans-serif;
       text-align: right;
     }
-    #confermaModulo, h2
+    #confermaModulo
+    {
+      text-align: left;
+      background-color: #666666;
+    }
+    h2 
     {
       text-align: left;
     }
@@ -76,6 +81,16 @@
         document.getElementById("confermaModulo").style.display="block";
     }
     
+    function keyPressed(e) {
+       var key;      
+       if(window.event)
+            key = window.event.keyCode; //IE
+       else
+            key = e.which; //firefox      
+
+       return (key != 13);
+    }
+    
     function back() {
       document.getElementById("formRegistrazione").style.display="block";
       document.getElementById("confermaModulo").style.display="none";
@@ -88,7 +103,7 @@
     }
   </script>
 </head>
-<body>
+<body onkeypress="return keyPressed(event)" >
     <form action="benvenuto.php" method="post">
       <div id="formRegistrazione">
         <h2>Modulo di iscrizione</h2>
