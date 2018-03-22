@@ -1,7 +1,6 @@
 <!DOCTYPE html>
- <?php
-  if(isset($_POST["regButton"]))
-  {
+ <?php  
+  if(isset($_POST["regButton"])) {
     $nome = test_input($_POST["nome"]);
     $email = test_input($_POST["email"]);
     $cognome = test_input($_POST["cognome"]);
@@ -9,7 +8,7 @@
     $nazionalita = test_input($_POST["nazionalita"]);
     $sesso = test_input($_POST["sesso"]);
     $password = test_input($_POST["password"]);
-    $patente;
+    $patente = "";
     if(isset($_POST["patenteA"]) && isset($_POST["patenteA"])) {
       $patente = test_input($_POST["patenteA"]) . test_input($_POST["patenteB"]);
     }
@@ -22,18 +21,25 @@
     
     $result;
     try {
-      mysql_connect("localhost", "root", "root") or die ("Impossibile connettersi al server: " . mysql_error());
-      mysql_select_db("php_web") or die ("Accesso al db non riuscito: " . mysql_error());
+      conn();
       $sql = "INSERT INTO utenti (Cognome, Nome, Sesso, Nazionalita, Patente, Email, Password) VALUES ('$cognome', '$nome', '$sesso', '$nazionalita', '$patente', '$email', '$password')";
       if (mysql_query($sql)) {
-        $result = "Dati correttamente registrati";
+        $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Utente registrato correttamente </h3></div>";
       }
       else {
-        $result = "Errore nell'inerimento: " . mysql_error();
+        $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Errore nella registrazione </h3></div>";
       }
     } catch(Exception $e) {
       $result = "Errore";
     }
+  }
+  else {
+    $result="<div id=\"esito\"><h2>Benvenuto</h2><h3> Hai effettuato il login </h3></div>";
+  }
+
+  function conn() {
+    mysql_connect("localhost", "root", "root") or die ("Impossibile connettersi al server: " . mysql_error());
+    mysql_select_db("php_web") or die ("Accesso al db non riuscito: " . mysql_error());
   }
 
   function test_input($data) {
@@ -60,9 +66,6 @@
     </style>
   </head>
   <body>
-    <div id="esito">
-      <h2>Esito registrazione</h2>
-      <h3><?php echo $result; ?></h3>
-    </div>
+    <?php echo $result ?> 
   </body>
 </html>
