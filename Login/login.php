@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+	session_start();
   if(isset($_POST["loginButton"])) {
     $em = test_input($_POST["em"]);
     $p = test_input($_POST["p"]);
@@ -12,7 +13,8 @@
         $error = "E-mail o password errati";
       }
       else {
-        header("Location:benvenuto.php");
+				$_SESSION["login_email"] = $em;
+        header("Location:../Registrazione/benvenuto.php");
         exit();
       }
     } catch(Exception $e) {

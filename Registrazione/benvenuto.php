@@ -1,5 +1,9 @@
 <!DOCTYPE html>
  <?php  
+  session_start();
+  if(isset($_POST["exit"])) {
+    logout();
+  }
   if(isset($_POST["regButton"])) {
     $nome = test_input($_POST["nome"]);
     $email = test_input($_POST["email"]);
@@ -24,17 +28,37 @@
       conn();
       $sql = "INSERT INTO utenti (Cognome, Nome, Sesso, Nazionalita, Patente, Email, Password) VALUES ('$cognome', '$nome', '$sesso', '$nazionalita', '$patente', '$email', '$password')";
       if (mysql_query($sql)) {
-        $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Utente registrato correttamente </h3></div>";
+        $_SESSION["login_email"] = $email;
+        $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Utente registrato correttamente </h3><form action=\"\" method=\"post\"><button type=\"submit\" name=\"exit\">Esci</button><form><</div>";
       }
       else {
         $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Errore nella registrazione </h3></div>";
       }
     } catch(Exception $e) {
-      $result = "Errore";
+      $result = "<div id=\"esito\"><h2>Esito registrazione</h2><h3> Errore nella registrazione </h3></div>";
     }
   }
   else {
-    $result="<div id=\"esito\"><h2>Benvenuto</h2><h3> Hai effettuato il login </h3></div>";
+    $result="<div id=\"esito\"><h2>Benvenuto</h2><h3> Hai effettuato il login </h3><form action=\"\" method=\"post\"><button type=\"submit\" name=\"exit\">Esci</button><form></div>";
+  }
+
+  ses_check();
+
+  function ses_check() {
+    conn();
+    $user_check = $_SESSION["login_email"];
+    $ses_sql = mysql_query("SELECT Email FROM utenti WHERE Email='$user_check'");
+    $row = mysql_fetch_assoc($ses_sql);
+    $login_session = $row["Email"];
+    if(!isset($login_session)) {
+      logout();
+    }
+  }
+  
+  function logout() {
+    if(session_destroy()) {
+      header("Location:accesso.php");
+    }
   }
 
   function conn() {
@@ -62,6 +86,20 @@
         padding: 1%;
         font-family: Verdana, sans-serif;
         text-align: center;
+      }
+      button
+      {
+        background-color: #ff5500;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 10px 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      button:active
+      {
+        background-color: #ffaa00;
       }
     </style>
   </head>

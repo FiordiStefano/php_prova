@@ -22,6 +22,11 @@
     {
       text-align: left;
     }
+    a
+    {
+      color: white;
+      margin-right: 5%;
+    }
     label
     {
       margin-right: 5%;
@@ -119,6 +124,7 @@
         <label>Patente: </label><input type="checkbox" class="patente" name="patenteA" value="A">Cat. a <input type="checkbox" class="patente" name="patenteB" value="B"> Cat. b<br>
         <label>Email: </label><input id="em" type="text" class="formRegistrazione" name="email">
         <label>Password: </label><input type="password" class="formRegistrazione" name="password">
+        <a href="accesso.php">Accedi</a>
         <button type="button" name="annulla" onclick="reset()">Annulla</button>
         <button type="button" name="conferma" onclick="ConfermaModulo()">Conferma</button>
       </div>
