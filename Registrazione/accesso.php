@@ -13,7 +13,7 @@
       }
       else {
 				$_SESSION["login_email"] = $em;
-        header("Location:../Registrazione/benvenuto.php");
+        header("Location:benvenuto.php");
         exit();
       }
     } catch(Exception $e) {
