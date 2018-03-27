@@ -90,8 +90,18 @@
         color: black;
         position: absolute;
         top: 25%;
-        left: 35%;
-        padding: 1%;
+        left: 32%;
+        padding: 10px;
+      }
+      table, th, td {
+        border-collapse: collapse;
+        border: 1px solid grey;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #8592DD;
+        border: none;
       }
     </style>
   </head>

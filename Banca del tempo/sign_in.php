@@ -10,7 +10,7 @@
     if (mysql_num_rows(mysql_query($sql)) == 0) {
       $error = "E-mail o password errati";
     } else {
-		$_SESSION["login_email"] = $email;
+		  $_SESSION["login_email"] = $email;
       header("Location:home.php");
     }
   }
