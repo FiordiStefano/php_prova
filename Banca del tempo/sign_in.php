@@ -5,19 +5,19 @@
     $password = test_input($_POST["password"]);
     $result;
     $error;
-    conn();
-    $sql = "SELECT email, password FROM socio WHERE email='$email' AND password='$password'";
-    if (mysql_num_rows(mysql_query($sql)) == 0) {
+    try {
+			$conn = new PDO("mysql:host=localhost;dbname=BancaTempo", "root", "root");
+		} catch (PDOexception $e) {
+			echo $e->getMessage();
+		}
+    $sql = $conn->prepare("SELECT email, password FROM socio WHERE email=? AND password=?");
+		$sql->execute([$email, $password]);
+    if ($sql->rowCount() == 0) {
       $error = "E-mail o password errati";
     } else {
 		  $_SESSION["login_email"] = $email;
       header("Location:home.php");
     }
-  }
-
-  function conn() {
-    mysql_connect("localhost", "root", "root") or die ("Impossibile connettersi al server: " . mysql_error());
-    mysql_select_db("BancaTempo") or die ("Accesso al db non riuscito: " . mysql_error());
   }
 
   function test_input($data) {
@@ -75,6 +75,10 @@
       a:hover, a:active, input[type=submit]:hover, input[type=submit]:active {
           background-color: #6F7FDD;
       }
+			#title:hover, #title:active, #title:link, #title:visited {
+        background-color: #334a78;
+        padding: 0px;
+      }
       input[type=submit] {
         background-color: #8592DD;
         color: white;
@@ -88,7 +92,7 @@
   </head>
   <body>
     <div class="title">
-      <h1 style="font-size:50px">BANCA DEL TEMPO</h1>
+      <a href="home.php" id="title"><h1 style="font-size:50px">BANCA DEL TEMPO</h1></a>
     </div>
     <div class="reg">
       <a href="sign_up.php"><h2>Registrati</h2></a>

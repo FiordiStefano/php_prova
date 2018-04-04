@@ -1,22 +1,27 @@
 <?php
   session_start();
+  try {
+    $conn = new PDO("mysql:host=localhost;dbname=BancaTempo", "root", "root");
+  } catch (PDOexception $e) {
+    echo $e->getMessage();
+  }
   if(!isset($_SESSION["login_email"])) {
     $reg = "<a href=\"sign_up.php\"><h2>Registrati</h2></a> <a href=\"sign_in.php\"><h2>Accedi</h2></a>";
   } else {
-    ses_check();
+    ses_check($conn);
     if(isset($_POST["logout"])) {
       logout();
     }
-    $reg = "<bold>".$_SESSION["login_email"]."</bold> <form action=\"\" method=\"post\"><input type=\"submit\" name=\"logout\" value=\"Logout\"></form>";
+    $reg = "<bold>".$_SESSION["login_email"]."</bold> <form action=\"\" method=\"post\"><input type=\"submit\" name=\"logout\" value=\"Esci\"></form>";
     $sql = "SELECT * FROM prestazione AS p INNER JOIN eroga_richiede AS er ON p.idPrestazione=er.idPrestazione WHERE er.idErogante='".$_SESSION["login_email"]."'";
-    $result = mysql_query($sql);
+    $result = $conn->query($sql);
   }
 
-  function ses_check() {
-    conn();
+  function ses_check($conn) {
     $user_check = $_SESSION["login_email"];
-    $ses_sql = mysql_query("SELECT email FROM socio WHERE email='$user_check'");
-    $row = mysql_fetch_assoc($ses_sql);
+    $ses_sql = $conn->prepare("SELECT email FROM socio WHERE email=?");
+    $ses_sql->execute([$user_check]);
+    $row = $ses_sql->fetch();
     $login_session = $row["email"];
     if(!isset($login_session)) {
       logout();
@@ -27,11 +32,6 @@
     if(session_destroy()) {
       header("Location:home.php");
     }
-  }
-
-  function conn() {
-    mysql_connect("localhost", "root", "root") or die ("Impossibile connettersi al server: " . mysql_error());
-    mysql_select_db("BancaTempo") or die ("Accesso al db non riuscito: " . mysql_error());
   }
 
   function test_input($data) {
@@ -64,6 +64,11 @@
         margin-left: 24px;
         float: left;
       }
+      .new_form {
+        position: absolute;
+        left: 38%;
+        top: 15%;
+      }
       a:link, a:visited {
         background-color: #8592DD;
         color: white;
@@ -93,11 +98,17 @@
         left: 32%;
         padding: 10px;
       }
+      #title:hover, #title:active, #title:link, #title:visited {
+        background-color: #334a78;
+        padding: 0px;
+      }
       table, th, td {
         border-collapse: collapse;
-        border: 1px solid grey;
+        /*border: 1px solid grey;*/
+        border: none;
         text-align: left;
-        padding: 8px;
+        padding: 16px;
+        background-color: #dddddd;
       }
       th {
         background-color: #8592DD;
@@ -107,17 +118,18 @@
   </head>
   <body>
     <div class="title">
-      <h1 style="font-size:50px">BANCA DEL TEMPO</h1>
+      <a href="home.php" id="title"><h1 style="font-size:50px">BANCA DEL TEMPO</h1></a>
     </div>
     <div class="reg">
       <?php echo $reg; ?>
     </div>
     <?php
       if(isset($result)) {
+        echo "<form class=\"new_form\" action=\"\" method=\"post\"><input type=\"submit\" name=\"new_prest\" value=\"Nuova prestazione\"> <input type=\"submit\" name=\"new_cat\" value=\"Inserisci categoria\"></form>\n";
         echo "<div class=\"prest\">\n";
         echo "<table border=\"1\">\n";
         echo "<tr><th>Prestazione</th><th>Erogante</th><th>Richiedente</th><th>Tempo</th></tr>\n";
-        while($row = mysql_fetch_array($result)) {
+        while($row = $result->fetch()) {
           echo "<tr><td>".$row["nomePrestazione"]."</td><td>".$row["idErogante"]."</td><td>".$row["idRichiedente"]."</td><td>".$row["erogaTempo"]."</td></tr>\n";
         }
         echo "</table>\n";

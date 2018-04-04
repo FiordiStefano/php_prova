@@ -1,9 +1,12 @@
 <?php
   session_start();
 
-  conn();  
-  $sql = "SELECT * FROM zona";
-  $result = mysql_query($sql);
+  try {
+	  $conn = new PDO("mysql:host=localhost;dbname=BancaTempo", "root", "root");
+	} catch (PDOexception $e) {
+		echo $e->getMessage();
+	}
+  $zona = $conn->query("SELECT * FROM zona");
   $display = "block";
   $display_done = "none";
   if(isset($_POST["btn_reg"])) {
@@ -13,26 +16,21 @@
     $indirizzo = test_input($_POST["indirizzo"]);
     $email = test_input($_POST["email"]);
     $password = test_input($_POST["password"]);
-    $zona = test_input($_POST["zona"]);
+    $idzona = test_input($_POST["zona"]);
     
-    $sql = "INSERT INTO socio (nome, cognome, telefono, indirizzo, email, password, idZona) VALUES ('$nome', '$cognome', '$telefono', '$indirizzo', '$email', '$password', $zona)";
-    if(mysql_query($sql)) {
+    $insert = $conn->prepare("INSERT INTO socio (nome, cognome, telefono, indirizzo, email, password, idZona) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    if($insert->execute([$nome, $cognome, $telefono, $indirizzo, $email, $password, $idzona]);) {
       $display = "none";
       $display_done = "block";
       $_SESSION["login_email"] = $email;
       $done = "<h1>Registrazione</h1><h1>completata</h1><h1>con successo</h1>";
-      header("refresh:5; url=home.php");
+      header("refresh:3; url=home.php");
     } else {
       $display = "none";
       $display_done = "block";
       $done = "<h1>Errore nella</h1><h1>registrazione</h1>";
-      header("refresh:5; url=sign_up.php");
+      header("refresh:3");
     }
-  }
-
-  function conn() {
-    mysql_connect("localhost", "root", "root") or die ("Impossibile connettersi al server: " . mysql_error());
-    mysql_select_db("BancaTempo") or die ("Accesso al db non riuscito: " . mysql_error());
   }
 
   function test_input($data) {
@@ -91,6 +89,10 @@
       #zona {
         width: 58%;
       }
+      #title:hover, #title:active, #title:link, #title:visited {
+        background-color: #334a78;
+        padding: 0px;
+      }
       input[type=submit] {
         background-color: #8592DD;
         color: white;
@@ -103,7 +105,7 @@
   </head>
   <body>
     <div class="title">
-      <h1 style="font-size:50px">BANCA DEL TEMPO</h1>
+      <a href="home.php" id="title"><h1 style="font-size:50px">BANCA DEL TEMPO</h1></a>
     </div>
     <div class="reg">
       <a href="sign_in.php"><h2>Accedi</h2></a>
@@ -120,7 +122,7 @@
         <label><strong>Zona: </strong></label>  
         <select id="zona" class="reg_form" name="zona">
           <?php 
-            while($row = mysql_fetch_array($result)) {
+            while($row = $zona->fetch()) {
               echo "<option value=\"".$row["idZona"]."\">".$row["nomeZona"]."</option> \n";
             }
           ?>
