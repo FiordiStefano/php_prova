@@ -13,7 +13,7 @@
       logout();
     }
     $reg = "<bold>".$_SESSION["login_email"]."</bold> <form action=\"\" method=\"post\"><input type=\"submit\" name=\"logout\" value=\"Esci\"></form>";
-    $sql = "SELECT * FROM prestazione AS p INNER JOIN eroga_richiede AS er ON p.idPrestazione=er.idPrestazione WHERE er.idErogante='".$_SESSION["login_email"]."'";
+    $sql = "SELECT * FROM prestazione AS p INNER JOIN eroga_richiede AS er ON p.idPrestazione=er.idPrestazione INNER JOIN categoria AS c ON c.idCategoria=p.idCategoria WHERE er.idErogante='".$_SESSION["login_email"]."' ORDER BY c.idCategoria";
     $result = $conn->query($sql);
   }
 
@@ -64,10 +64,11 @@
         margin-left: 24px;
         float: left;
       }
-      .new_form {
+      .new_things {
         position: absolute;
-        left: 38%;
-        top: 15%;
+        left: 37%;
+        top: 20%;
+        font-weight: bold;
       }
       a:link, a:visited {
         background-color: #8592DD;
@@ -125,12 +126,12 @@
     </div>
     <?php
       if(isset($result)) {
-        echo "<form class=\"new_form\" action=\"\" method=\"post\"><input type=\"submit\" name=\"new_prest\" value=\"Nuova prestazione\"> <input type=\"submit\" name=\"new_cat\" value=\"Inserisci categoria\"></form>\n";
+        echo "<div class=\"new_things\"><a href=\"new_prest.php\">Nuova prestazione</a> <a href=\"new_cat.php\">Nuova categoria</a></div>\n";
         echo "<div class=\"prest\">\n";
         echo "<table border=\"1\">\n";
-        echo "<tr><th>Prestazione</th><th>Erogante</th><th>Richiedente</th><th>Tempo</th></tr>\n";
+        echo "<tr><th>Categoria</th><th>Prestazione</th><th>Erogante</th><th>Richiedente</th><th>Tempo</th></tr>\n";
         while($row = $result->fetch()) {
-          echo "<tr><td>".$row["nomePrestazione"]."</td><td>".$row["idErogante"]."</td><td>".$row["idRichiedente"]."</td><td>".$row["erogaTempo"]."</td></tr>\n";
+          echo "<tr><td>".$row["nomeCategoria"]."</td><td>".$row["nomePrestazione"]."</td><td>".$row["idErogante"]."</td><td>".$row["idRichiedente"]."</td><td>".$row["erogaTempo"]."</td></tr>\n";
         }
         echo "</table>\n";
         echo "</div>\n";

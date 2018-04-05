@@ -6,7 +6,8 @@
 	} catch (PDOexception $e) {
 		echo $e->getMessage();
 	}
-  $zona = $conn->query("SELECT * FROM zona");
+  $cats = $conn->query("SELECT * FROM categoria");
+	$users = $conn->query("SELECT * FROM socio");
   $display = "block";
   $display_done = "none";
   if(isset($_POST["btn_reg"])) {
@@ -86,9 +87,9 @@
         width: 75%;
         padding: 5%;
       }
-      #zona {
-        width: 58%;
-      }
+			#req, #cat, #erog {
+				width: 85%;
+			}
       #title:hover, #title:active, #title:link, #title:visited {
         background-color: #334a78;
         padding: 0px;
@@ -111,23 +112,38 @@
       <a href="sign_in.php"><h2>Accedi</h2></a>
     </div>
     <div class="modulo" style="display:<?php echo $display; ?>;">
-      <h1>Registrazione</h1>
+      <h1>Prestazione</h1>
       <form action="" method="post">
-        <input type="text" required="required" placeholder="Nome" class="reg_form" name="nome"><br>
-        <input type="text" required="required" placeholder="Cognome" class="reg_form" name="cognome"><br>
-        <input type="text" required="required" placeholder="Telefono" class="reg_form" name="telefono"><br>
-        <input type="text" required="required" placeholder="Indirizzo" class="reg_form" name="indirizzo"><br>
-        <input type="text" required="required" placeholder="E-mail" class="reg_form" name="email"><br>
-        <input type="password" required="required" placeholder="Password" class="reg_form" name="password"><br>
-        <label><strong>Zona: </strong></label>  
-        <select id="zona" class="reg_form" name="zona">
+        <input type="text" required="required" placeholder="Prestazione" class="reg_form" name="prest"><br>
+        <input type="date" required="required" class="reg_form" name="data"><br>
+        <input type="date" required="required" class="reg_form" name="data_richiesta"><br>
+        <input type="text" required="required" placeholder="Tempo" class="reg_form" name="tempo"><br>
+				<label><strong>Erogante: </strong></label><br>  
+        <select id="erog" class="reg_form" name="erogante">
           <?php 
-            while($row = $zona->fetch()) {
-              echo "<option value=\"".$row["idZona"]."\">".$row["nomeZona"]."</option> \n";
+            while($row = $users->fetch()) {
+              echo "<option value=\"".$row["idSocio"]."\">".$row["email"]."</option> \n";
             }
           ?>
         </select><br>
-        <input type="submit" class="reg_form" name="btn_reg" value="Registrati"> 
+				<label><strong>Richiedente: </strong></label><br>  
+        <select id="req" class="reg_form" name="richiedente">
+          <?php 
+						$users = $conn->query("SELECT * FROM socio");
+            while($row = $users->fetch()) {
+              echo "<option value=\"".$row["idSocio"]."\">".$row["email"]."</option> \n";
+            }
+          ?>
+        </select><br>
+        <label><strong>Categoria: </strong></label><br>  
+        <select id="cat" class="reg_form" name="cat">
+          <?php 
+            while($row = $cats->fetch()) {
+              echo "<option value=\"".$row["idCategoria"]."\">".$row["nomeCategoria"]."</option> \n";
+            }
+          ?>
+        </select><br>
+        <input type="submit" class="reg_form" name="btn_reg" value="Conferma"> 
       </form>
     </div>
     <div class="modulo" style="display:<?php echo $display_done; ?>;">
