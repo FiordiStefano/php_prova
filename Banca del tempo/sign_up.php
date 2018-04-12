@@ -43,7 +43,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Banca del tempo registrazione</title>
+		<meta charset="UTF-8">
+    <title>Banca del tempo - Registrazione</title>
     <style>
       body {
         color: white;

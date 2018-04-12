@@ -6,31 +6,50 @@
 	} catch (PDOexception $e) {
 		echo $e->getMessage();
 	}
+  ses_check($conn);
+
   $cats = $conn->query("SELECT * FROM categoria");
 	$users = $conn->query("SELECT * FROM socio");
   $display = "block";
   $display_done = "none";
   if(isset($_POST["btn_reg"])) {
-    $nome = test_input($_POST["nome"]);
-    $cognome = test_input($_POST["cognome"]);
-    $telefono = test_input($_POST["telefono"]);
-    $indirizzo = test_input($_POST["indirizzo"]);
-    $email = test_input($_POST["email"]);
-    $password = test_input($_POST["password"]);
-    $idzona = test_input($_POST["zona"]);
+    $prest = test_input($_POST["prest"]);
+    $data = test_input($_POST["data"]);
+    $data_richiesta = test_input($_POST["data_richiesta"]);
+    $tempo = test_input($_POST["tempo"]);
+    $erogante = test_input($_POST["erogante"]);
+    $richiedente = test_input($_POST["richiedente"]);
+    $cat = test_input($_POST["cat"]);
     
-    $insert = $conn->prepare("INSERT INTO socio (nome, cognome, telefono, indirizzo, email, password, idZona) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    if($insert->execute([$nome, $cognome, $telefono, $indirizzo, $email, $password, $idzona])) {
+    $insertp = $conn->prepare("INSERT INTO prestazione (nomePrestazione, idCategoria) VALUES (?, ?)");
+    //$inserte = $conn->prepare("INSERT INTO eroga_richiede (erogaTempo, erogaData, erogaDataRichiesta, idRichiedente, idErogante, idPrestazione) VALUES (?, ?, ?, ?, ?, ?)");
+    if($insertp->execute([$prest, $cat])) {
       $display = "none";
       $display_done = "block";
-      $_SESSION["login_email"] = $email;
-      $done = "<h1>Registrazione</h1><h1>completata</h1><h1>con successo</h1>";
+      $done = "<h1>Prestazione</h1><h1>inserita</h1><h1>con successo</h1>";
       header("refresh:3; url=home.php");
     } else {
       $display = "none";
       $display_done = "block";
-      $done = "<h1>Errore nella</h1><h1>registrazione</h1>";
+      $done = "<h1>Errore nell'</h1><h1>inserimento</h1>";
       header("refresh:3");
+    }
+  }
+  
+  function ses_check($conn) {
+    $user_check = $_SESSION["login_email"];
+    $ses_sql = $conn->prepare("SELECT email FROM socio WHERE email=?");
+    $ses_sql->execute([$user_check]);
+    $row = $ses_sql->fetch();
+    $login_session = $row["email"];
+    if(!isset($login_session)) {
+      logout();
+    }
+  }
+  
+  function logout() {
+    if(session_destroy()) {
+      header("Location:home.php");
     }
   }
 
@@ -44,7 +63,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Banca del tempo registrazione</title>
+		<meta charset="UTF-8">
+    <title>Banca del tempo - Nuova prestazione</title>
     <style>
       body {
         color: white;
@@ -108,14 +128,13 @@
     <div class="title">
       <a href="home.php" id="title"><h1 style="font-size:50px">BANCA DEL TEMPO</h1></a>
     </div>
-    <div class="reg">
-      <a href="sign_in.php"><h2>Accedi</h2></a>
-    </div>
     <div class="modulo" style="display:<?php echo $display; ?>;">
       <h1>Prestazione</h1>
       <form action="" method="post">
-        <input type="text" required="required" placeholder="Prestazione" class="reg_form" name="prest"><br>
+        <input type="text" required="required" placeholder="Nome prestazione" class="reg_form" name="prest"><br>
+        <label><strong>Data: </strong></label><br>  
         <input type="date" required="required" class="reg_form" name="data"><br>
+        <label><strong>Data Richiesta: </strong></label><br>  
         <input type="date" required="required" class="reg_form" name="data_richiesta"><br>
         <input type="text" required="required" placeholder="Tempo" class="reg_form" name="tempo"><br>
 				<label><strong>Erogante: </strong></label><br>  

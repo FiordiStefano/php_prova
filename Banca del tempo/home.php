@@ -44,13 +44,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Banca del tempo home</title>
+    <meta charset="UTF-8">
+    <title>Banca del tempo - Home</title>
     <style>
-      body {
+      body, html {
         color: white;
         background-color: #334a78;
         font-family: verdana, thin;
         text-align: center;
+        height: 100%;
+        width: 100%;
       }
       .reg {
         margin-top: 16px;
@@ -65,9 +68,9 @@
         float: left;
       }
       .new_things {
-        position: absolute;
-        left: 37%;
-        top: 20%;
+        position: relative;
+        left: -8%;
+        top: 19%;
         font-weight: bold;
       }
       a:link, a:visited {
@@ -96,7 +99,7 @@
         color: black;
         position: absolute;
         top: 25%;
-        left: 32%;
+        left: 27%;
         padding: 10px;
       }
       #title:hover, #title:active, #title:link, #title:visited {

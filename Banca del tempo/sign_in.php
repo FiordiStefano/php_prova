@@ -30,7 +30,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Banca del tempo accesso</title>
+		<meta charset="UTF-8">
+    <title>Banca del tempo - Accesso</title>
     <style>
       body {
         color: white;
