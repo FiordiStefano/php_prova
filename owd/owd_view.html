@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="owd_controller.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Weather Forecast</title>
+  </head>
+  <body>
+    <div class="w3-cell-row">
+      <div id="weather" class="w3-panel w3-cell">
+        <div class="w3-container w3-red">
+          <h3>Weather</h3>
+          <div id="w_date" class="w3-container">
+            
+          </div>
+        </div>
+        <div id="w_body" class="w3-container">
+          
+        </div>
+        <div class="w3-container w3-light-grey w3-cell-row">
+          <div class="w3-cell">
+            <p>Location search by name: </p>
+          </div>
+          <div class="w3-cell">
+            <input type="text" id="loc_w" class="w3-input w3-border">
+          </div>
+          <div class="w3-cell ">
+            <button id="btn_w" class="w3-button w3-red">Search</button>
+            <button id="btn_w_canc" class="w3-button w3-white">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div id="forecast" class="w3-panel w3-cell">
+        <div class="w3-container w3-blue">
+          <h3>Forecast</h3>
+        </div>
+        <div id="f_body" class="w3-container">
+
+        </div>
+        <div class="w3-container w3-light-grey w3-cell-row">
+          <div class="w3-cell">
+            <p>Location search by name: </p>
+          </div>
+          <div class="w3-cell">
+            <input type="text" id="loc_f" class="w3-input w3-border">
+          </div>
+          <div class="w3-cell">
+            <button id="btn_f" class="w3-button w3-blue">Search</button>
+            <button id="btn_f_canc" class="w3-button w3-white">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

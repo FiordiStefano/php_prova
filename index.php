@@ -7,6 +7,10 @@
         text-decoration: none;
         color: white;
       }
+      a:hover 
+      {
+        text-decoration: underline;
+      }
       body
       {
         background-color: black;
@@ -17,6 +21,8 @@
   </head>
   <body>
     <a href="indovina.php"><h3>Indovina numero</h3></a>
+    <br>
+    <a href="owd/owd_view.html"><h2>Open weather app</h2></a>
     <br>
     <a href="Banca del tempo/home.php"><h3>Banca del tempo</h3></a>
     <br>
