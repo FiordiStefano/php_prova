@@ -24,6 +24,8 @@
     <br>
     <a href="owd/owd_view.html"><h2>Open weather app</h2></a>
     <br>
+    <a href="Condominio/Cond_view.html"><h2>Condominio</h2></a>
+    <br>
     <a href="Banca del tempo/home.php"><h3>Banca del tempo</h3></a>
     <br>
     <a href="Registrazione/registrazione.php"><h3>Modulo Registrazione</h3></a>

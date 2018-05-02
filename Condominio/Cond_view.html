@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="Cond_controller.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Condominio</title>
+  </head>
+  <body>
+    <div class="w3-top">
+      <div class="w3-bar w3-large w3-padding w3-dark-grey">
+        <button class="w3-bar-item w3-button" id="btn_ana">Anagrafe</button>
+        <div class="w3-dropdown-hover">
+          <button class="w3-button" id="btn_spese">Spese</button>
+          <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#" class="w3-bar-item w3-button" id="btn_sord">Spese ordinarie</a>
+            <a href="#" class="w3-bar-item w3-button" id="btn_sspec">Spese speciali</a>
+          </div>
+        </div>
+        <button class="w3-bar-item w3-button w3-right w3-white" id="btn_login">Login</button>
+        <button class="w3-bar-item w3-button w3-right w3-white" id="btn_home">Home</button>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="w3-container w3-center" id="home">
+      <h1 class="w3-xxxlarge">Condominio &#171Mercatale&#187</h1>
+      <h1>&#200 necessario accedere con le proprie credenziali</h1>
+    </div>
+    <div class="w3-container w3-center" id="form_login">
+      <h1 class="w3-xxxlarge">Accesso al portale</h1>
+      <input type="text" placeholder="E-mail" class="w3-input w3-border" id="email">
+      <input type="text" placeholder="Password" class="w3-input w3-border w3-margin-top w3-margin-bottom" id="passwd">
+      <button class="w3-button w3-wight w3-border" id="canc">Annulla</button>
+      <button class="w3-button w3-blue w3-border" id="login">Accedi al portale</button>
+    </div>
+  </body>
+</html>
