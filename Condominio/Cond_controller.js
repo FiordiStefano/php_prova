@@ -19,9 +19,12 @@ $(document).ready(function() {
   });
   
   $("login").click(function() {
-    $.post("Cond_model.php", {
-      email: $("#email").val(),
-      passwd: $("#passwd").val(),
+    $.getJSON("Cond_model.php", $("#email").val(),
+      $("#passwd").val(), function(result) {
+        if(result != null) {
+          $("#form_login").hide();
+          $("#login_succ").show();
+        }
     });
   });
 });
