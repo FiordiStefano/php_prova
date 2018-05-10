@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $("#login_succ").hide();
   $("#form_login").hide();
   $("#btn_home").hide();
   $("#btn_ana").hide();
@@ -16,12 +17,18 @@ $(document).ready(function() {
     $("#home").show();
     $("#btn_login").show();
     $("#btn_home").hide();
+    $("#login_succ").hide();
   });
   
-  $("login").click(function() {
-    $.getJSON("Cond_model.php", $("#email").val(),
-      $("#passwd").val(), function(result) {
-        if(result != null) {
+  $("#canc").click(function() {
+    $('#email').val('');
+    $('#passwd').val('');
+  });
+  
+  $("#login").click(function() {
+    $.getJSON("Cond_model/Cond_login.php", { "email": $("#email").val(),
+      "passwd": $("#passwd").val() }, function(result) {
+        if (result.length > 0) {
           $("#form_login").hide();
           $("#login_succ").show();
         }
